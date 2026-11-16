@@ -37,7 +37,9 @@
     -webkit-font-smoothing: antialiased; overflow-x: hidden;
   }
   a { color: inherit; }
-  img { max-width: 100%; display: block; }
+  /* width/height attributes reserve space; height:auto keeps the real aspect ratio when scaled */
+  img { max-width: 100%; height: auto; display: block; }
+  .shot img, figure img { width: 100%; }
   .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
   .glow { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
   .glow::before, .glow::after {
