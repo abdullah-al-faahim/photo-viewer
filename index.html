@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Photo Viewer — fast, lightweight photo viewer for Windows</title>
+<meta name="description" content="A single 0.5 MB portable exe that opens photos fast, shows full EXIF and GPS details, and handles quick edits. Free for Windows 10 and 11.">
+<meta name="theme-color" content="#0b0e1f">
+<link rel="icon" type="image/png" href="assets/icon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Photo Viewer — fast, lightweight photo viewer for Windows">
+<meta property="og:description" content="One tiny portable exe. Opens photos fast, shows every bit of EXIF, and does the quick edits you need.">
+<meta property="og:image" content="https://abdullah-al-faahim.github.io/photo-viewer/assets/cover.png">
+<meta property="og:url" content="https://abdullah-al-faahim.github.io/photo-viewer/">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  :root {
+    --bg: #0b0e1f;
+    --bg2: #141030;
+    --panel: rgba(255, 255, 255, .045);
+    --line: rgba(255, 255, 255, .10);
+    --text: #eef0fa;
+    --muted: #a7adc8;
+    --dim: #737a99;
+    --sky: #0ea5e9;
+    --indigo: #6366f1;
+    --violet: #8b5cf6;
+    --amber: #f59e0b;
+    --radius: 18px;
+    --max: 1160px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 16px/1.6 "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  }
+  a { color: inherit; }
+  img { max-width: 100%; display: block; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+  .glow { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+  .glow::before, .glow::after {
+    content: ""; position: absolute; border-radius: 50%; filter: blur(90px); opacity: .55;
+  }
+  .glow::before { width: 620px; height: 620px; left: -160px; top: -200px; background: #0c4a6e; }
+  .glow::after { width: 760px; height: 760px; right: -220px; top: 60px; background: #4c1d95; }
+
+  /* nav */
+  nav { position: sticky; top: 0; z-index: 20; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+        background: rgba(11, 14, 31, .72); border-bottom: 1px solid var(--line); }
+  nav .wrap { display: flex; align-items: center; gap: 28px; height: 64px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; text-decoration: none; font-size: 17px; }
+  .brand img { width: 30px; height: 30px; }
+  .links { display: flex; gap: 22px; margin-left: auto; }
+  .links a { text-decoration: none; color: var(--muted); font-size: 15px; }
+  .links a:hover { color: var(--text); }
+  .gh { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 10px;
+        border: 1px solid var(--line); text-decoration: none; font-size: 14px; background: var(--panel); }
+  .gh:hover { border-color: rgba(255,255,255,.25); }
+  .gh svg { width: 18px; height: 18px; fill: currentColor; }
+
+  /* hero */
+  header { position: relative; padding: 88px 0 40px; text-align: center; }
+  header .wrap { position: relative; z-index: 1; }
+  .pill { display: inline-flex; gap: 8px; align-items: center; padding: 6px 14px; border-radius: 999px;
+          border: 1px solid var(--line); background: var(--panel); color: var(--muted); font-size: 14px; }
+  .pill b { color: #7dd3fc; font-weight: 600; }
+  h1 { font-size: clamp(42px, 7vw, 76px); line-height: 1.04; margin: 22px 0 18px; letter-spacing: -.02em; }
+  h1 span { background: linear-gradient(100deg, #38bdf8, #818cf8 55%, #c084fc); -webkit-background-clip: text;
+            background-clip: text; color: transparent; }
+  .lead { font-size: clamp(17px, 2.2vw, 20px); color: var(--muted); max-width: 640px; margin: 0 auto 34px; }
+  .cta { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; gap: 14px; padding: 14px 26px 14px 22px; border-radius: 16px;
+         text-decoration: none; font-weight: 700; font-size: 18px; transition: transform .15s, box-shadow .15s; }
+  .btn.primary { background: linear-gradient(135deg, var(--sky), var(--indigo)); color: #fff;
+                 box-shadow: 0 10px 40px -10px rgba(99, 102, 241, .8), inset 0 1px 0 rgba(255,255,255,.25); }
+  .btn.primary:hover { transform: translateY(-2px); box-shadow: 0 16px 50px -12px rgba(99, 102, 241, .95); }
+  .btn.primary small { display: block; font-weight: 500; font-size: 13px; opacity: .85; }
+  .btn.primary .t { text-align: left; line-height: 1.25; }
+  .btn.ghost { border: 1px solid var(--line); background: var(--panel); color: var(--text); font-weight: 600; font-size: 16px; }
+  .btn.ghost:hover { border-color: rgba(255,255,255,.28); }
+  .win { width: 26px; height: 26px; flex: none; }
+  .meta { margin-top: 18px; color: var(--dim); font-size: 14px; }
+
+  .shot { position: relative; margin: 64px auto 0; max-width: 1060px; }
+  .shot::before { content: ""; position: absolute; inset: 8% 6% -4%; background: linear-gradient(120deg, #0ea5e9, #8b5cf6);
+                  filter: blur(80px); opacity: .45; z-index: -1; border-radius: 40px; }
+  .shot img { border-radius: 14px; border: 1px solid rgba(255,255,255,.12); box-shadow: 0 30px 80px -20px rgba(0,0,0,.8); }
+
+  /* stats */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 72px 0 0; }
+  .stat { text-align: center; padding: 22px 12px; border-radius: var(--radius); background: var(--panel); border: 1px solid var(--line); }
+  .stat strong { display: block; font-size: 30px; letter-spacing: -.01em; }
+  .stat span { color: var(--muted); font-size: 14px; }
+
+  section { padding: 96px 0 0; }
+  .eyebrow { color: #7dd3fc; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; font-size: 13px; }
+  h2 { font-size: clamp(30px, 4vw, 42px); line-height: 1.15; margin: 10px 0 14px; letter-spacing: -.015em; }
+  .sub { color: var(--muted); max-width: 640px; margin: 0 0 40px; font-size: 17px; }
+
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .card { padding: 26px; border-radius: var(--radius); background: var(--panel); border: 1px solid var(--line);
+          transition: border-color .2s, transform .2s; }
+  .card:hover { border-color: rgba(129, 140, 248, .5); transform: translateY(-2px); }
+  .card .ic { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; margin-bottom: 16px;
+              background: linear-gradient(135deg, rgba(14,165,233,.25), rgba(139,92,246,.25)); border: 1px solid var(--line); }
+  .card .ic svg { width: 22px; height: 22px; stroke: #c7d2fe; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .card h3 { margin: 0 0 8px; font-size: 19px; }
+  .card p { margin: 0; color: var(--muted); font-size: 15px; }
+
+  .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  figure { margin: 0; }
+  figure img { border-radius: 12px; border: 1px solid var(--line); }
+  figcaption { color: var(--muted); font-size: 14px; margin-top: 10px; text-align: center; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--panel); font-size: 14px; color: var(--muted); }
+  .chip.on { color: var(--text); border-color: rgba(125, 211, 252, .35); }
+  .note { color: var(--dim); font-size: 14px; margin-top: 14px; }
+
+  table { width: 100%; border-collapse: collapse; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  td { padding: 13px 18px; border-top: 1px solid var(--line); vertical-align: top; }
+  tr:first-child td { border-top: 0; }
+  td:first-child { width: 46%; }
+  td:last-child { color: var(--muted); }
+  kbd { display: inline-block; font: 600 13px/1 ui-monospace, "Cascadia Mono", Consolas, monospace; padding: 5px 8px; margin: 2px 2px;
+        border-radius: 7px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); border-bottom-width: 2px; }
+
+  .steps { counter-reset: s; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .step { position: relative; padding: 26px 26px 26px 26px; border-radius: var(--radius); background: var(--panel); border: 1px solid var(--line); }
+  .step::before { counter-increment: s; content: counter(s); display: grid; place-items: center; width: 34px; height: 34px;
+                  border-radius: 50%; margin-bottom: 14px; font-weight: 700;
+                  background: linear-gradient(135deg, var(--sky), var(--indigo)); }
+  .step h3 { margin: 0 0 6px; font-size: 18px; }
+  .step p { margin: 0; color: var(--muted); font-size: 15px; }
+  .callout { margin-top: 18px; padding: 16px 20px; border-radius: 14px; border: 1px solid rgba(245,158,11,.35);
+             background: rgba(245,158,11,.08); color: #fde68a; font-size: 15px; }
+
+  details { border: 1px solid var(--line); background: var(--panel); border-radius: 14px; padding: 4px 20px; margin-bottom: 12px; }
+  summary { cursor: pointer; padding: 14px 0; font-weight: 600; list-style: none; display: flex; justify-content: space-between; }
+  summary::after { content: "+"; color: var(--dim); font-size: 20px; line-height: 1; }
+  details[open] summary::after { content: "–"; }
+  summary::-webkit-details-marker { display: none; }
+  details p { color: var(--muted); margin: 0 0 16px; }
+  code { font: 14px ui-monospace, "Cascadia Mono", Consolas, monospace; background: rgba(255,255,255,.07); padding: 2px 6px; border-radius: 6px; }
+
+  .final { margin: 110px 0 0; padding: 56px 24px; text-align: center; border-radius: 28px; position: relative; overflow: hidden;
+           background: linear-gradient(135deg, rgba(14,165,233,.18), rgba(139,92,246,.22)); border: 1px solid var(--line); }
+  .final h2 { margin-top: 0; }
+  footer { padding: 48px 0 56px; color: var(--dim); font-size: 14px; text-align: center; }
+  footer a { color: var(--muted); }
+
+  :focus-visible { outline: 2px solid #7dd3fc; outline-offset: 3px; border-radius: 8px; }
+
+  @media (max-width: 900px) {
+    .grid, .steps { grid-template-columns: 1fr 1fr; }
+    .stats { grid-template-columns: 1fr 1fr; }
+    .links { display: none; }
+    nav .gh { margin-left: auto; }
+  }
+  @media (max-width: 620px) {
+    .wrap { padding: 0 16px; }
+    .grid, .steps, .gallery { grid-template-columns: 1fr; }
+    header { padding-top: 56px; }
+    td:first-child { width: auto; }
+    td { display: block; border-top: 0; padding: 4px 16px; }
+    tr { display: block; border-top: 1px solid var(--line); padding: 10px 0; }
+    tr:first-child { border-top: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="assets/icon.png" alt="">Photo Viewer</a>
+    <div class="links">
+      <a href="#features">Features</a>
+      <a href="#screenshots">Screenshots</a>
+      <a href="#formats">Formats</a>
+      <a href="#shortcuts">Shortcuts</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <a class="gh" href="https://github.com/abdullah-al-faahim/photo-viewer">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+      GitHub
+    </a>
+  </div>
+</nav>
+
+<header id="top">
+  <div class="glow"></div>
+  <div class="wrap">
+    <span class="pill"><b id="ver">v1.0.0</b> · Free for Windows 10 &amp; 11</span>
+    <h1>Your photos, <span>instantly.</span></h1>
+    <p class="lead">One tiny portable exe that opens photos fast, shows every bit of EXIF, and does the quick edits you actually need. There's no installer and no runtime to install, and nothing is uploaded.</p>
+    <div class="cta">
+      <a class="btn primary dl" href="https://github.com/abdullah-al-faahim/photo-viewer/releases/latest/download/PhotoViewer-win-x64.zip">
+        <svg class="win" viewBox="0 0 32 32" fill="#fff" aria-hidden="true"><rect width="15" height="15" rx="1.5"/><rect x="17" width="15" height="15" rx="1.5"/><rect y="17" width="15" height="15" rx="1.5"/><rect x="17" y="17" width="15" height="15" rx="1.5"/></svg>
+        <span class="t">Download for Windows<small id="dlmeta">64-bit · Portable · 0.25 MB zip</small></span>
+      </a>
+      <a class="btn ghost" href="https://github.com/abdullah-al-faahim/photo-viewer/releases">All releases</a>
+    </div>
+    <p class="meta">No account. No ads. Works offline.</p>
+    <div class="shot">
+      <img src="assets/screenshot-main.png" width="1584" height="1094"
+           alt="Photo Viewer showing a mountain sunset photo with the EXIF details panel open">
+    </div>
+    <div class="stats">
+      <div class="stat"><strong>~0.1 s</strong><span>to an open window</span></div>
+      <div class="stat"><strong>0.5 MB</strong><span>single executable</span></div>
+      <div class="stat"><strong>70+</strong><span>file types</span></div>
+      <div class="stat"><strong>0</strong><span>dependencies</span></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section id="features">
+    <div class="eyebrow">Features</div>
+    <h2>Everything a photo viewer needs.<br>Nothing it doesn't.</h2>
+    <p class="sub">It's built in native C++ with GPU rendering, so it stays out of your way: it opens fast, scrolls smoothly and keeps memory use low.</p>
+    <div class="grid">
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+        <h3>Fast</h3>
+        <p>The GPU, the decoder and the window all start up at the same time. The next and previous photos are preloaded, so browsing a folder feels instant.</p>
+      </div>
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M11 8v6M8 11h6"/></svg></div>
+        <h3>Smooth zoom &amp; pan</h3>
+        <p>High-quality downscaling, a pixel-exact 100% view, wheel zoom to the cursor, and drag to pan. There's also full screen and a slideshow.</p>
+      </div>
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg></div>
+        <h3>EXIF inspector</h3>
+        <p>See the camera, lens, shutter, aperture, ISO and focal length at a glance. The GPS location opens in a map. Every EXIF, XMP and IPTC tag is listed and can be copied.</p>
+      </div>
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M6 2v14a2 2 0 0 0 2 2h14M18 22V8a2 2 0 0 0-2-2H2"/></svg></div>
+        <h3>Quick edits</h3>
+        <p>Rotate, flip, crop with thirds guides, and resize with high-quality cubic scaling. Undo and redo everything.</p>
+      </div>
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></div>
+        <h3>Color adjust</h3>
+        <p>Brightness, contrast, saturation, warmth and sharpen with a live preview. Also one-click black &amp; white, sepia and invert.</p>
+      </div>
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8M7 3v5h8"/></svg></div>
+        <h3>Safe saving</h3>
+        <p>Re-saving a JPEG keeps its camera data and GPS. Files are written atomically, so a crash can never leave a half-written photo.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="screenshots">
+    <div class="eyebrow">Screenshots</div>
+    <h2>A clean, dark interface</h2>
+    <p class="sub">Your photo takes center stage. The tools sit in a slim toolbar, and everything else is a right-click away.</p>
+    <div class="gallery">
+      <figure>
+        <img src="assets/screenshot-adjust.png" width="1584" height="1094" loading="lazy" alt="Adjust colors dialog with sliders and a live preview of the edited photo">
+        <figcaption>Adjust colors with a live preview</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/screenshot-crop.png" width="1584" height="1094" loading="lazy" alt="Crop mode with a selection rectangle and rule-of-thirds guides">
+        <figcaption>Crop with rule-of-thirds guides</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="formats">
+    <div class="eyebrow">Formats</div>
+    <h2>Opens almost everything</h2>
+    <p class="sub">These formats work out of the box. Highlighted ones need a free Microsoft Store extension, and Photo Viewer picks it up automatically once installed.</p>
+    <div class="chips">
+      <span class="chip">JPEG</span><span class="chip">PNG</span><span class="chip">GIF (animated)</span><span class="chip">BMP</span>
+      <span class="chip">TIFF</span><span class="chip">ICO</span><span class="chip">JPEG XR</span><span class="chip">DDS</span>
+      <span class="chip">TGA</span><span class="chip">PPM / PGM</span>
+      <span class="chip on">HEIC / HEIF</span><span class="chip on">AVIF</span><span class="chip on">WebP</span><span class="chip on">JPEG XL</span>
+      <span class="chip on">Canon CR2 / CR3</span><span class="chip on">Nikon NEF</span><span class="chip on">Sony ARW</span>
+      <span class="chip on">Adobe DNG</span><span class="chip on">Fujifilm RAF</span><span class="chip on">Olympus ORF</span><span class="chip on">Panasonic RW2</span>
+    </div>
+    <p class="note">You can save as JPEG, PNG, BMP, TIFF, GIF, JPEG XR or HEIC.</p>
+  </section>
+
+  <section id="shortcuts">
+    <div class="eyebrow">Shortcuts</div>
+    <h2>Fully keyboard-driven</h2>
+    <p class="sub">Every action has a key, and mouse back/forward buttons work too. Press <kbd>F1</kbd> in the app to see this list.</p>
+    <table>
+      <tr><td><kbd>←</kbd><kbd>→</kbd> <kbd>PgUp</kbd><kbd>PgDn</kbd> <kbd>Space</kbd> <kbd>Home</kbd><kbd>End</kbd></td><td>Previous / next / first / last photo</td></tr>
+      <tr><td>Wheel <kbd>+</kbd><kbd>−</kbd> <kbd>0</kbd> <kbd>1</kbd></td><td>Zoom, fit to window, 100%</td></tr>
+      <tr><td><kbd>F11</kbd> or double-click, <kbd>F5</kbd>, <kbd>I</kbd></td><td>Full screen, slideshow, details &amp; EXIF</td></tr>
+      <tr><td><kbd>R</kbd><kbd>L</kbd> <kbd>H</kbd><kbd>V</kbd> <kbd>C</kbd> <kbd>E</kbd> <kbd>Ctrl</kbd>+<kbd>R</kbd></td><td>Rotate, flip, crop, adjust colors, resize</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>Z</kbd> <kbd>Ctrl</kbd>+<kbd>Y</kbd></td><td>Undo, redo</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>O</kbd> <kbd>Ctrl</kbd>+<kbd>S</kbd> <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>S</kbd></td><td>Open, save, save as</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>C</kbd> <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd> <kbd>Del</kbd></td><td>Copy image, copy details, move to Recycle Bin</td></tr>
+      <tr><td><kbd>Esc</kbd></td><td>Cancel crop, leave full screen, close</td></tr>
+    </table>
+  </section>
+
+  <section id="install">
+    <div class="eyebrow">Install</div>
+    <h2>Up and running in seconds</h2>
+    <p class="sub">Requires Windows 10 or 11, 64-bit.</p>
+    <div class="steps">
+      <div class="step"><h3>Download</h3><p>Get <code>PhotoViewer-win-x64.zip</code> from the latest release.</p></div>
+      <div class="step"><h3>Extract &amp; run</h3><p>Unzip it anywhere, for example <code>C:\Apps\PhotoViewer</code>, and open <code>PhotoViewer.exe</code>.</p></div>
+      <div class="step"><h3>Make it default</h3><p>Optional: <b>⋯ → Set as default photo viewer…</b>, then pick it in Windows Settings.</p></div>
+    </div>
+    <div class="callout">The app isn't code-signed yet, so Windows SmartScreen may show "Windows protected your PC" the first time. Click <b>More info → Run anyway</b>. SHA-256 checksums are on the release page.</div>
+  </section>
+
+  <section id="faq">
+    <div class="eyebrow">FAQ</div>
+    <h2>Questions</h2>
+    <details>
+      <summary>Is it really free?</summary>
+      <p>Yes. There are no ads, no trial and no account.</p>
+    </details>
+    <details>
+      <summary>Does it upload or track anything?</summary>
+      <p>No. It works entirely offline. The only network action is the optional "Open location in map" button, which opens OpenStreetMap in your browser when you click it.</p>
+    </details>
+    <details>
+      <summary>Why won't my HEIC or RAW photos open?</summary>
+      <p>Windows needs the free decoder installed: HEIF Image Extensions for HEIC, AV1 Video Extension for AVIF, WebP Image Extensions, or Raw Image Extension for camera RAW. Install it from the Microsoft Store and reopen the photo.</p>
+    </details>
+    <details>
+      <summary>Where are settings stored, and how do I uninstall?</summary>
+      <p>Settings are stored in <code>HKCU\Software\FastPhotoViewer</code>. To uninstall, delete the folder. If you set it as default, first pick another app in Windows Settings.</p>
+    </details>
+  </section>
+
+  <div class="final">
+    <h2>Give your photos a faster home.</h2>
+    <p class="sub" style="margin:0 auto 28px">Download Photo Viewer free. It takes about a second to try.</p>
+    <a class="btn primary dl" href="https://github.com/abdullah-al-faahim/photo-viewer/releases/latest/download/PhotoViewer-win-x64.zip">
+      <svg class="win" viewBox="0 0 32 32" fill="#fff" aria-hidden="true"><rect width="15" height="15" rx="1.5"/><rect x="17" width="15" height="15" rx="1.5"/><rect y="17" width="15" height="15" rx="1.5"/><rect x="17" y="17" width="15" height="15" rx="1.5"/></svg>
+      <span class="t">Download for Windows<small>Free · 64-bit · Portable</small></span>
+    </a>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    © 2026 abdullah-al-faahim ·
+    <a href="https://github.com/abdullah-al-faahim/photo-viewer/releases">Releases</a> ·
+    <a href="https://github.com/abdullah-al-faahim/photo-viewer/issues">Report an issue</a>
+  </div>
+</footer>
+
+<script>
+  // Show the live version and file size of the latest release (falls back to the static text).
+  fetch("https://api.github.com/repos/abdullah-al-faahim/photo-viewer/releases/latest")
+    .then(r => r.ok ? r.json() : Promise.reject())
+    .then(rel => {
+      document.getElementById("ver").textContent = rel.tag_name;
+      const zip = (rel.assets || []).find(a => a.name === "PhotoViewer-win-x64.zip");
+      if (zip) document.getElementById("dlmeta").textContent =
+        `${rel.tag_name} · 64-bit · Portable · ${(zip.size / 1048576).toFixed(2)} MB zip`;
+    })
+    .catch(() => {});
+</script>
+</body>
+</html>
