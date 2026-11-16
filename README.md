@@ -16,6 +16,10 @@
 </p>
 
 <p align="center">
+  🌐 <a href="https://abdullah-al-faahim.github.io/photo-viewer/"><b>abdullah-al-faahim.github.io/photo-viewer</b></a>
+</p>
+
+<p align="center">
   <b>One tiny portable .exe.</b> No installer, no runtime, no telemetry.<br>
   Opens your photos fast, shows every bit of EXIF, and does the quick edits you actually need.
 </p>
