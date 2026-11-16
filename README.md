@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://github.com/abdullah-al-faahim/photo-viewer/releases/latest/download/PhotoViewer-win-x64.zip">
-    <img src="assets/download.svg" alt="Download Photo Viewer for Windows" width="340">
+    <img src="assets/download.svg" alt="Download Photo Viewer for Windows" width="380">
   </a>
 </p>
 

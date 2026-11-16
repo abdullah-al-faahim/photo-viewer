@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="340" height="76" viewBox="0 0 340 76" role="img" aria-label="Download Photo Viewer for Windows">
+<svg xmlns="http://www.w3.org/2000/svg" width="380" height="76" viewBox="0 0 380 76" role="img" aria-label="Download Photo Viewer for Windows">
   <defs>
     <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#0EA5E9"/><stop offset="1" stop-color="#6366F1"/>
@@ -7,9 +7,9 @@
       <stop offset="0" stop-color="#fff" stop-opacity=".22"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/>
     </linearGradient>
   </defs>
-  <rect x="1" y="1" width="338" height="74" rx="16" fill="url(#g)"/>
-  <rect x="1" y="1" width="338" height="74" rx="16" fill="url(#s)"/>
-  <rect x="1.5" y="1.5" width="337" height="73" rx="15.5" fill="none" stroke="#fff" stroke-opacity=".25"/>
+  <rect x="1" y="1" width="378" height="74" rx="16" fill="url(#g)"/>
+  <rect x="1" y="1" width="378" height="74" rx="16" fill="url(#s)"/>
+  <rect x="1.5" y="1.5" width="377" height="73" rx="15.5" fill="none" stroke="#fff" stroke-opacity=".25"/>
   <g transform="translate(26 22)" fill="#fff">
     <rect width="15" height="15" rx="1.5"/><rect x="17" width="15" height="15" rx="1.5"/>
     <rect y="17" width="15" height="15" rx="1.5"/><rect x="17" y="17" width="15" height="15" rx="1.5"/>
@@ -18,7 +18,7 @@
     <text x="76" y="35" font-size="21" font-weight="700">Download for Windows</text>
     <text x="76" y="56" font-size="13.5" fill-opacity=".85">v1.0.0  ·  64-bit  ·  Portable  ·  0.5 MB</text>
   </g>
-  <g transform="translate(304 38)" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <g transform="translate(346 38)" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
     <path d="M0 -10 V8 M-7 1 L0 8 L7 1 M-9 13 H9"/>
   </g>
 </svg>
