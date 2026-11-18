@@ -4,11 +4,11 @@
 
 <p align="center">
   <a href="https://apps.microsoft.com/detail/9NKZZG22X8TW?referrer=appbadge&mode=direct">
-    <img src="https://get.microsoft.com/images/en-us%20dark.svg" alt="Get it from Microsoft" width="220">
+    <img src="assets/store.svg" alt="Get Photo Viewer from the Microsoft Store" width="340">
   </a>
   &nbsp;
   <a href="https://github.com/abdullah-al-faahim/photo-viewer/releases/latest/download/PhotoViewer-win-x64.zip">
-    <img src="assets/download.svg" alt="Download portable Photo Viewer for Windows" width="300">
+    <img src="assets/download.svg" alt="Download portable Photo Viewer for Windows" width="340">
   </a>
 </p>
 
