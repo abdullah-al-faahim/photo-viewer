@@ -3,8 +3,12 @@
 </p>
 
 <p align="center">
+  <a href="https://apps.microsoft.com/detail/9NKZZG22X8TW?referrer=appbadge&mode=direct">
+    <img src="https://get.microsoft.com/images/en-us%20dark.svg" alt="Get it from Microsoft" width="220">
+  </a>
+  &nbsp;
   <a href="https://github.com/abdullah-al-faahim/photo-viewer/releases/latest/download/PhotoViewer-win-x64.zip">
-    <img src="assets/download.svg" alt="Download Photo Viewer for Windows" width="380">
+    <img src="assets/download.svg" alt="Download portable Photo Viewer for Windows" width="300">
   </a>
 </p>
 
@@ -20,7 +24,7 @@
 </p>
 
 <p align="center">
-  <b>One tiny portable .exe.</b> No installer, no runtime, no telemetry.<br>
+  <b>Free on the Microsoft Store</b>, or as one tiny portable .exe. No runtime, no telemetry.<br>
   Opens your photos fast, shows every bit of EXIF, and does the quick edits you actually need.
 </p>
 
@@ -56,17 +60,25 @@
 
 ## Install
 
+### Microsoft Store (recommended)
+
+**[Get Photo Viewer (Super-Fast) from Microsoft](https://apps.microsoft.com/detail/9NKZZG22X8TW?referrer=appbadge&mode=direct)** and click **Install**.
+Microsoft signs the Store version, so there's no security warning. It updates automatically and shows up under *Open with* for all supported photo types.
+
+### Portable
+
 1. **[Download `PhotoViewer-win-x64.zip`](https://github.com/abdullah-al-faahim/photo-viewer/releases/latest/download/PhotoViewer-win-x64.zip)** from the latest release.
 2. Extract it anywhere you like, for example `C:\Apps\PhotoViewer`, and run **`PhotoViewer.exe`**.
-3. *(Optional)* To make it your default viewer, open **⋯ → Set as default photo viewer…**. Then pick Photo Viewer in the Windows Settings page that opens.
 
 > [!NOTE]
-> The app isn't code-signed yet, so Windows SmartScreen may say *"Windows protected your PC"* the first time.
-> Click **More info → Run anyway**. You can check the download against the SHA-256 checksum on the release page.
+> The portable exe isn't code-signed, so Windows SmartScreen may say *"Windows protected your PC"* the first time.
+> Click **More info → Run anyway**, or use the Microsoft Store version instead. You can check the download against the SHA-256 checksum on the release page.
+
+*(Optional, either version)* To make it your default viewer, open **⋯ → Set as default photo viewer…**. Then pick Photo Viewer in the Windows Settings page that opens.
 
 **Want HEIC, AVIF, WebP or RAW?** Install the free Microsoft extensions: *HEIF Image Extensions*, *AV1 Video Extension*, *WebP Image Extensions* and *Raw Image Extension*. Photo Viewer picks them up automatically.
 
-**Requirements:** Windows 10 or 11, 64-bit.
+**Requirements:** Windows 10 (version 1809) or 11, 64-bit.
 
 ## Keyboard shortcuts
 
@@ -100,7 +112,8 @@ Window size and the details-panel state are stored in `HKCU\Software\FastPhotoVi
 <details>
 <summary><b>How do I uninstall it?</b></summary>
 
-Delete the folder. If you used "Set as default", first pick another default app in Windows Settings. Then you can delete `HKCU\Software\FastPhotoViewer` and `HKCU\Software\Classes\FastPhotoViewer.Image`.
+**Store version:** Settings → Apps → Installed apps → Photo Viewer (Super-Fast) → Uninstall.
+**Portable version:** delete the folder. If you used "Set as default", first pick another default app in Windows Settings. Then you can delete `HKCU\Software\FastPhotoViewer` and `HKCU\Software\Classes\FastPhotoViewer.Image`.
 </details>
 
 ## Feedback

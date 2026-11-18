@@ -83,6 +83,13 @@
   .btn.ghost { border: 1px solid var(--line); background: var(--panel); color: var(--text); font-weight: 600; font-size: 16px; }
   .btn.ghost:hover { border-color: rgba(255,255,255,.28); }
   .win { width: 26px; height: 26px; flex: none; }
+  .cta { align-items: center; }
+  .store { display: inline-block; border-radius: 10px; transition: transform .15s; }
+  .store:hover { transform: translateY(-2px); }
+  .store img { width: 200px; height: auto; }
+  .btn.ghost.dl small { display: block; font-weight: 500; font-size: 13px; color: var(--muted); }
+  .btn.ghost.dl .t { text-align: left; line-height: 1.25; }
+  .btn.ghost.dl .win { width: 22px; height: 22px; }
   .meta { margin-top: 18px; color: var(--dim); font-size: 14px; }
 
   .shot { position: relative; margin: 64px auto 0; max-width: 1060px; }
@@ -202,13 +209,15 @@
     <h1>Your photos, <span>instantly.</span></h1>
     <p class="lead">One tiny portable exe that opens photos fast, shows every bit of EXIF, and does the quick edits you actually need. There's no installer and no runtime to install, and nothing is uploaded.</p>
     <div class="cta">
-      <a class="btn primary dl" href="https://github.com/abdullah-al-faahim/photo-viewer/releases/latest/download/PhotoViewer-win-x64.zip">
-        <svg class="win" viewBox="0 0 32 32" fill="#fff" aria-hidden="true"><rect width="15" height="15" rx="1.5"/><rect x="17" width="15" height="15" rx="1.5"/><rect y="17" width="15" height="15" rx="1.5"/><rect x="17" y="17" width="15" height="15" rx="1.5"/></svg>
-        <span class="t">Download for Windows<small id="dlmeta">64-bit · Portable · 0.25 MB zip</small></span>
+      <a class="store" href="https://apps.microsoft.com/detail/9NKZZG22X8TW?referrer=appbadge&amp;mode=direct">
+        <img src="https://get.microsoft.com/images/en-us%20dark.svg" width="200" height="72" alt="Get it from Microsoft">
       </a>
-      <a class="btn ghost" href="https://github.com/abdullah-al-faahim/photo-viewer/releases">All releases</a>
+      <a class="btn ghost dl" href="https://github.com/abdullah-al-faahim/photo-viewer/releases/latest/download/PhotoViewer-win-x64.zip">
+        <svg class="win" viewBox="0 0 32 32" fill="#fff" aria-hidden="true"><rect width="15" height="15" rx="1.5"/><rect x="17" width="15" height="15" rx="1.5"/><rect y="17" width="15" height="15" rx="1.5"/><rect x="17" y="17" width="15" height="15" rx="1.5"/></svg>
+        <span class="t">Portable .zip<small id="dlmeta">64-bit · no install · 0.25 MB</small></span>
+      </a>
     </div>
-    <p class="meta">No account. No ads. Works offline.</p>
+    <p class="meta">Free on the Microsoft Store: signed by Microsoft, installs in one click, updates automatically. No account. No ads. Works offline.</p>
     <div class="shot">
       <img src="assets/screenshot-main.png" width="1584" height="1094"
            alt="Photo Viewer showing a mountain sunset photo with the EXIF details panel open">
@@ -312,13 +321,13 @@
   <section id="install">
     <div class="eyebrow">Install</div>
     <h2>Up and running in seconds</h2>
-    <p class="sub">Requires Windows 10 or 11, 64-bit.</p>
+    <p class="sub">Requires Windows 10 (version 1809) or 11, 64-bit.</p>
     <div class="steps">
-      <div class="step"><h3>Download</h3><p>Get <code>PhotoViewer-win-x64.zip</code> from the latest release.</p></div>
-      <div class="step"><h3>Extract &amp; run</h3><p>Unzip it anywhere, for example <code>C:\Apps\PhotoViewer</code>, and open <code>PhotoViewer.exe</code>.</p></div>
+      <div class="step"><h3>Microsoft Store</h3><p>Recommended. <a href="https://apps.microsoft.com/detail/9NKZZG22X8TW?referrer=appbadge&amp;mode=direct">Get it from Microsoft</a> and click <b>Install</b>. It's signed by Microsoft, so there's no security warning, and it updates automatically.</p></div>
+      <div class="step"><h3>Or go portable</h3><p>Download <code>PhotoViewer-win-x64.zip</code>, unzip it anywhere, and run <code>PhotoViewer.exe</code>. Nothing gets installed.</p></div>
       <div class="step"><h3>Make it default</h3><p>Optional: <b>⋯ → Set as default photo viewer…</b>, then pick it in Windows Settings.</p></div>
     </div>
-    <div class="callout">The app isn't code-signed yet, so Windows SmartScreen may show "Windows protected your PC" the first time. Click <b>More info → Run anyway</b>. SHA-256 checksums are on the release page.</div>
+    <div class="callout">The portable .zip isn't code-signed, so Windows SmartScreen may show "Windows protected your PC" the first time. Click <b>More info → Run anyway</b>, or install from the Microsoft Store to avoid the warning. SHA-256 checksums are on the release page.</div>
   </section>
 
   <section id="faq">
@@ -338,17 +347,22 @@
     </details>
     <details>
       <summary>Where are settings stored, and how do I uninstall?</summary>
-      <p>Settings are stored in <code>HKCU\Software\FastPhotoViewer</code>. To uninstall, delete the folder. If you set it as default, first pick another app in Windows Settings.</p>
+      <p>Settings are stored in <code>HKCU\Software\FastPhotoViewer</code>. To uninstall the Store version, go to Settings → Apps → Installed apps. For the portable version, delete the folder (if you set it as default, first pick another app in Windows Settings).</p>
     </details>
   </section>
 
   <div class="final">
     <h2>Give your photos a faster home.</h2>
-    <p class="sub" style="margin:0 auto 28px">Download Photo Viewer free. It takes about a second to try.</p>
-    <a class="btn primary dl" href="https://github.com/abdullah-al-faahim/photo-viewer/releases/latest/download/PhotoViewer-win-x64.zip">
-      <svg class="win" viewBox="0 0 32 32" fill="#fff" aria-hidden="true"><rect width="15" height="15" rx="1.5"/><rect x="17" width="15" height="15" rx="1.5"/><rect y="17" width="15" height="15" rx="1.5"/><rect x="17" y="17" width="15" height="15" rx="1.5"/></svg>
-      <span class="t">Download for Windows<small>Free · 64-bit · Portable</small></span>
-    </a>
+    <p class="sub" style="margin:0 auto 28px">Get Photo Viewer free. It takes about a second to try.</p>
+    <div class="cta">
+      <a class="store" href="https://apps.microsoft.com/detail/9NKZZG22X8TW?referrer=appbadge&amp;mode=direct">
+        <img src="https://get.microsoft.com/images/en-us%20dark.svg" width="200" height="72" alt="Get it from Microsoft" loading="lazy">
+      </a>
+      <a class="btn ghost dl" href="https://github.com/abdullah-al-faahim/photo-viewer/releases/latest/download/PhotoViewer-win-x64.zip">
+        <svg class="win" viewBox="0 0 32 32" fill="#fff" aria-hidden="true"><rect width="15" height="15" rx="1.5"/><rect x="17" width="15" height="15" rx="1.5"/><rect y="17" width="15" height="15" rx="1.5"/><rect x="17" y="17" width="15" height="15" rx="1.5"/></svg>
+        <span class="t">Portable .zip<small>Free · 64-bit · no install</small></span>
+      </a>
+    </div>
   </div>
 </main>
 
@@ -369,7 +383,7 @@
       document.getElementById("ver").textContent = rel.tag_name;
       const zip = (rel.assets || []).find(a => a.name === "PhotoViewer-win-x64.zip");
       if (zip) document.getElementById("dlmeta").textContent =
-        `${rel.tag_name} · 64-bit · Portable · ${(zip.size / 1048576).toFixed(2)} MB zip`;
+        `${rel.tag_name} · 64-bit · no install · ${(zip.size / 1048576).toFixed(2)} MB`;
     })
     .catch(() => {});
 </script>
