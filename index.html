@@ -384,7 +384,7 @@
       document.getElementById("ver").textContent = rel.tag_name;
       const zip = (rel.assets || []).find(a => a.name === "PhotoViewer-win-x64.zip");
       if (zip) document.getElementById("dlmeta").textContent =
-        `${rel.tag_name} · 64-bit · no install · ${(zip.size / 1048576).toFixed(2)} MB`;
+        `${rel.tag_name} · no install · ${(zip.size / 1048576).toFixed(2)} MB`;
     })
     .catch(() => {});
 </script>
