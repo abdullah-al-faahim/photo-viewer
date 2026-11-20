@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Photo Viewer — fast, lightweight photo viewer for Windows</title>
-<meta name="description" content="A single 0.5 MB portable exe that opens photos fast, shows full EXIF and GPS details, and handles quick edits. Free for Windows 10 and 11.">
+<meta name="description" content="A tiny portable exe that opens photos fast, shows full EXIF and GPS details, handles quick edits and converts between formats like JPG, PNG and WebP. Free for Windows 10 and 11.">
 <meta name="theme-color" content="#0b0e1f">
 <link rel="icon" type="image/png" href="assets/icon.png">
 <meta property="og:type" content="website">
@@ -204,7 +204,7 @@
 <header id="top">
   <div class="glow"></div>
   <div class="wrap">
-    <span class="pill"><b id="ver">v1.0.0</b> · Free for Windows 10 &amp; 11</span>
+    <span class="pill"><b id="ver">v1.1.0</b> · Free for Windows 10 &amp; 11</span>
     <h1>Your photos, <span>instantly.</span></h1>
     <p class="lead">One tiny portable exe that opens photos fast, shows every bit of EXIF, and does the quick edits you actually need. There's no installer and no runtime to install, and nothing is uploaded.</p>
     <div class="cta">
@@ -214,7 +214,7 @@
       </a>
       <a class="btn ghost dl" href="https://github.com/abdullah-al-faahim/photo-viewer/releases/latest/download/PhotoViewer-win-x64.zip">
         <svg class="win" viewBox="0 0 32 32" fill="#fff" aria-hidden="true"><rect width="15" height="15" rx="1.5"/><rect x="17" width="15" height="15" rx="1.5"/><rect y="17" width="15" height="15" rx="1.5"/><rect x="17" y="17" width="15" height="15" rx="1.5"/></svg>
-        <span class="t">Portable .zip<small id="dlmeta">64-bit · no install · 0.25 MB</small></span>
+        <span class="t">Portable .zip<small id="dlmeta">v1.1.0 · no install · 0.46 MB</small></span>
       </a>
     </div>
     <p class="meta">Free on the Microsoft Store: signed by Microsoft, installs in one click, updates automatically. No account. No ads. Works offline.</p>
@@ -224,7 +224,7 @@
     </div>
     <div class="stats">
       <div class="stat"><strong>~0.1 s</strong><span>to an open window</span></div>
-      <div class="stat"><strong>0.5 MB</strong><span>single executable</span></div>
+      <div class="stat"><strong>0.9 MB</strong><span>single executable</span></div>
       <div class="stat"><strong>70+</strong><span>file types</span></div>
       <div class="stat"><strong>0</strong><span>dependencies</span></div>
     </div>
@@ -266,7 +266,22 @@
       <div class="card">
         <div class="ic"><svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8M7 3v5h8"/></svg></div>
         <h3>Safe saving</h3>
-        <p>Re-saving a JPEG keeps its camera data and GPS. Files are written atomically, so a crash can never leave a half-written photo.</p>
+        <p>Save as JPEG, PNG, WebP and more. Re-saving a JPEG keeps its camera data and GPS. Files are written atomically, so a crash can never leave a half-written photo.</p>
+      </div>
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M4 7h13l-3-3M20 17H7l3 3"/></svg></div>
+        <h3>Format converter <span style="font-size:12px;color:#7dd3fc;font-weight:600">NEW</span></h3>
+        <p>Convert one photo or a whole folder to JPEG, PNG, WebP (lossy or lossless), BMP, TIFF, GIF, JPEG XR or HEIC. Quality is adjustable, and existing files are never overwritten.</p>
+      </div>
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
+        <h3>Private by design</h3>
+        <p>Everything happens on your PC. There are no accounts, ads, analytics or uploads, and the app works fully offline.</p>
+      </div>
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10"/></svg></div>
+        <h3>Keyboard-driven</h3>
+        <p>Every action has a shortcut, and mouse back/forward buttons browse photos. Press F1 in the app to see them all.</p>
       </div>
     </div>
   </section>
@@ -284,6 +299,10 @@
         <img src="assets/screenshot-crop.png" width="1584" height="1094" loading="lazy" alt="Crop mode with a selection rectangle and rule-of-thirds guides">
         <figcaption>Crop with rule-of-thirds guides</figcaption>
       </figure>
+      <figure style="grid-column: 1 / -1">
+        <img src="assets/screenshot-convert.png" width="1584" height="1094" loading="lazy" alt="Convert photos dialog with format, quality, lossless, scope and destination options">
+        <figcaption>Convert one photo or a whole folder, for example JPG to PNG or PNG to WebP</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -299,7 +318,7 @@
       <span class="chip on">Canon CR2 / CR3</span><span class="chip on">Nikon NEF</span><span class="chip on">Sony ARW</span>
       <span class="chip on">Adobe DNG</span><span class="chip on">Fujifilm RAF</span><span class="chip on">Olympus ORF</span><span class="chip on">Panasonic RW2</span>
     </div>
-    <p class="note">You can save as JPEG, PNG, BMP, TIFF, GIF, JPEG XR or HEIC.</p>
+    <p class="note">You can save and convert to JPEG, PNG, WebP, BMP, TIFF, GIF, JPEG XR or HEIC.</p>
   </section>
 
   <section id="shortcuts">
@@ -313,6 +332,7 @@
       <tr><td><kbd>R</kbd><kbd>L</kbd> <kbd>H</kbd><kbd>V</kbd> <kbd>C</kbd> <kbd>E</kbd> <kbd>Ctrl</kbd>+<kbd>R</kbd></td><td>Rotate, flip, crop, adjust colors, resize</td></tr>
       <tr><td><kbd>Ctrl</kbd>+<kbd>Z</kbd> <kbd>Ctrl</kbd>+<kbd>Y</kbd></td><td>Undo, redo</td></tr>
       <tr><td><kbd>Ctrl</kbd>+<kbd>O</kbd> <kbd>Ctrl</kbd>+<kbd>S</kbd> <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>S</kbd></td><td>Open, save, save as</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>E</kbd></td><td>Convert format (this photo or the whole folder)</td></tr>
       <tr><td><kbd>Ctrl</kbd>+<kbd>C</kbd> <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd> <kbd>Del</kbd></td><td>Copy image, copy details, move to Recycle Bin</td></tr>
       <tr><td><kbd>Esc</kbd></td><td>Cancel crop, leave full screen, close</td></tr>
     </table>
@@ -372,7 +392,8 @@
     © 2026 abdullah-al-faahim ·
     <a href="https://github.com/abdullah-al-faahim/photo-viewer/releases">Releases</a> ·
     <a href="https://github.com/abdullah-al-faahim/photo-viewer/issues">Report an issue</a> ·
-    <a href="privacy.html">Privacy</a>
+    <a href="privacy.html">Privacy</a> ·
+    WebP encoding by <a href="https://chromium.googlesource.com/webm/libwebp">libwebp</a>
   </div>
 </footer>
 

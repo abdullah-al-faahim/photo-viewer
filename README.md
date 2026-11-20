@@ -15,7 +15,7 @@
 <p align="center">
   <a href="https://github.com/abdullah-al-faahim/photo-viewer/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/abdullah-al-faahim/photo-viewer?style=flat-square&color=6366F1"></a>
   <img alt="Windows 10 / 11" src="https://img.shields.io/badge/Windows-10%20%7C%2011-0EA5E9?style=flat-square&logo=windows&logoColor=white">
-  <img alt="Size" src="https://img.shields.io/badge/size-0.5%20MB-22C55E?style=flat-square">
+  <img alt="Size" src="https://img.shields.io/badge/size-0.9%20MB-22C55E?style=flat-square">
   <a href="https://github.com/abdullah-al-faahim/photo-viewer/releases"><img alt="Downloads" src="https://img.shields.io/github/downloads/abdullah-al-faahim/photo-viewer/total?style=flat-square&color=F59E0B"></a>
 </p>
 
@@ -35,11 +35,12 @@
 |  |  |
 |---|---|
 | ⚡ **Fast** | Native C++ with GPU rendering. The window is up in about 0.1 s and a typical photo is on screen in about 0.15–0.3 s. The next and previous photos are preloaded, so browsing a folder feels instant. |
-| 🪶 **Light** | A single ~0.5 MB executable with no dependencies. It uses ~40 MB of RAM while viewing a photo. |
+| 🪶 **Light** | A single ~0.9 MB executable with no dependencies. It uses ~40 MB of RAM while viewing a photo. |
 | 🖼️ **Opens almost everything** | JPEG, PNG, GIF (animated), BMP, TIFF, ICO, JPEG XR, DDS, TGA, PPM/PGM. HEIC/HEIF, AVIF, WebP, JPEG XL and **camera RAW** (CR2, CR3, NEF, ARW, DNG, RAF, ORF, RW2…) also open when the free Microsoft Store extensions are installed. |
 | 🔍 **EXIF inspector** | Camera, lens, shutter, aperture, ISO, focal length, flash and white balance at a glance. A GPS location button opens the map. Every EXIF / GPS / XMP / IPTC tag is listed, and one click copies them all. |
 | ✏️ **Quick edits** | Rotate, flip, crop, resize, and adjust brightness, contrast, saturation, warmth and sharpness with a live preview. Also black & white, sepia and invert, with full undo/redo. |
-| 💾 **Safe saving** | Saves as JPEG, PNG, BMP, TIFF, GIF, JPEG XR or HEIC. When you re-save a JPEG, its camera data and GPS are kept. Files are written atomically, so a crash can't corrupt your photo. |
+| 🔁 **Format converter** <sup>new in 1.1</sup> | Convert one photo or a whole folder to JPEG, PNG, **WebP** (lossy or lossless), BMP, TIFF, GIF, JPEG XR or HEIC, with adjustable quality. Results are saved next to the originals or in a folder you choose, and existing files are never overwritten. Press `Ctrl+Shift+E`. |
+| 💾 **Safe saving** | Saves as JPEG, PNG, WebP, BMP, TIFF, GIF, JPEG XR or HEIC. When you re-save a JPEG, its camera data and GPS are kept. Files are written atomically, so a crash can't corrupt your photo. |
 
 ## Screenshots
 
@@ -57,6 +58,11 @@
     <td align="center"><sub>Crop with rule-of-thirds guides</sub></td>
   </tr>
 </table>
+
+<p align="center">
+  <img src="assets/screenshot-convert.png" alt="Convert photos dialog: format, quality, lossless, one photo or a whole folder" width="100%"><br>
+  <sub>Convert one photo or a whole folder, for example JPG to PNG or PNG to WebP</sub>
+</p>
 
 ## Install
 
@@ -90,6 +96,7 @@ Microsoft signs the Store version, so there's no security warning. It updates au
 | `R` / `L` · `H` / `V` · `C` · `E` · `Ctrl+R` | Rotate · flip · crop · adjust colors · resize |
 | `Ctrl+Z` · `Ctrl+Y` | Undo · redo |
 | `Ctrl+O` · `Ctrl+S` · `Ctrl+Shift+S` | Open · save · save as |
+| `Ctrl+Shift+E` | Convert format (this photo or the whole folder) |
 | `Ctrl+C` · `Ctrl+Shift+C` · `Del` | Copy image · copy details · move to Recycle Bin |
 | `Esc` | Cancel crop / leave full screen / close |
 
@@ -120,4 +127,4 @@ Window size and the details-panel state are stored in `HKCU\Software\FastPhotoVi
 
 Found a bug or have an idea? [Open an issue](https://github.com/abdullah-al-faahim/photo-viewer/issues).
 
-<p align="center"><sub>© 2026 abdullah-al-faahim. All rights reserved.</sub></p>
+<p align="center"><sub>© 2026 abdullah-al-faahim. All rights reserved. WebP encoding uses <a href="https://chromium.googlesource.com/webm/libwebp">libwebp</a> (BSD license).</sub></p>
